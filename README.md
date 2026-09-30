@@ -1,7 +1,14 @@
 # Ubikka · app-super-admin
 
-Panel de operación de la plataforma Ubikka. Repositorio Git independiente, creado para desarrollar el acceso de superadministración. Todavía no contiene la aplicación.
+Panel exclusivo de operadores de Ubikka. Permite iniciar sesión, ver métricas generales de inmobiliarias, registrar una nueva con invitación a su primer administrador, renovar esa invitación y activar o suspender inmobiliarias. El panel no consulta leads ni conversaciones privadas.
 
-Alcance inicial: alta y estado de inmobiliarias, administradores, invitaciones, métricas globales, salud de integraciones y auditoría de acciones. El acceso a datos privados de los clientes debe ser excepcional y registrable.
+## Desarrollo local
+
+1. Levantar PostgreSQL y el backend con sus migraciones aplicadas.
+2. Copiar `.env.example` a `.env.local` y ajustar `API_URL`.
+3. Ejecutar `npm install` y `npm run dev` (puerto 3003).
+4. Ingresar con una cuenta `super_admin`. En seed local: `operador@ubikka.test` / `password123`.
+
+Al registrar una inmobiliaria se envía la invitación al email indicado si hay SMTP. En desarrollo sin SMTP aparece un enlace para entregar manualmente. El administrador acepta en `app-dashboard` (puerto 3000), configura su sitio y lo publica.
 
 Ver el [plan general](../docs/PLAN_IMPLEMENTACION.md).
