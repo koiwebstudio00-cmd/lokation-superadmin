@@ -50,3 +50,7 @@ Ver el [plan general](../docs/PLAN_IMPLEMENTACION.md).
 ## Login con Google y 2FA por etapas
 
 Ver [configuración y pruebas](../docs/LOGIN_GOOGLE_2FA.md). Google usa Better Auth; las sesiones y los permisos de Ubikka continúan en el backend.
+
+## Relación con el dashboard inmobiliario
+
+Cada panel tiene su tema y navegación propios. Los cambios de 2026-10-01 en `app-dashboard` (Noto Sans JP, selector de tema en navbar, contenedores redondeados y ajuste de activación de DropdownMenu) corresponden al panel inmobiliario. Este repositorio conserva su tema Lexend Deca y su flujo de seguridad. Las nuevas analíticas del tenant no amplían el acceso de los operadores a conversaciones o leads.
