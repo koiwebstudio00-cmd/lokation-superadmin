@@ -46,3 +46,7 @@ No registrar formularios de seguridad ni sus respuestas en telemetría. La audit
 Validación: `npm run build`, `npm run lint`; en backend `npm run test:prepare` y `npm test`.
 
 Ver el [plan general](../docs/PLAN_IMPLEMENTACION.md).
+
+## Login con Google y 2FA por etapas
+
+Ver [configuración y pruebas](../docs/LOGIN_GOOGLE_2FA.md). Google usa Better Auth; las sesiones y los permisos de Ubikka continúan en el backend.

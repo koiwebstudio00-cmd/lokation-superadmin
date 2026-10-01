@@ -1,4 +1,5 @@
 "use client";
+import { PasswordInput } from "@/components/ui/password-input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Pencil, RefreshCw } from "lucide-react";
@@ -20,7 +21,7 @@ function Editor({ user }: { user?: Operator }) {
       const result = await platformMutation(`/v1/platform/operators${user ? `/${user.id}` : ""}`, user ? "PATCH" : "POST", { nombre: data.get("nombre"), email: data.get("email"), ...(!user ? { password } : {}) }); setPending(false);
       if (result.error) setError(result.error); else { setOpen(false); setPassword(""); router.refresh(); }
     }}><Label className="grid gap-2">Nombre<Input name="nombre" defaultValue={user?.nombre} required minLength={2} maxLength={120} /></Label><Label className="grid gap-2">Email<Input name="email" type="email" defaultValue={user?.email} required /></Label>
-      {!user && <div className="space-y-2"><Label htmlFor="operator-password">Contraseña inicial</Label><Input id="operator-password" type="text" autoComplete="new-password" value={password} onChange={e => setPassword(e.target.value)} required minLength={12} maxLength={72} /><Button type="button" variant="outline" size="sm" onClick={() => setPassword(generatePassword())}><RefreshCw />Generar contraseña</Button><p className="text-xs text-muted-foreground">Compartila por un canal privado. El operador podrá cambiarla desde su perfil.</p></div>}
+      {!user && <div className="space-y-2"><Label htmlFor="operator-password">Contraseña inicial</Label><PasswordInput id="operator-password" autoComplete="new-password" value={password} onChange={e => setPassword(e.target.value)} required minLength={12} maxLength={72} /><Button type="button" variant="outline" size="sm" onClick={() => setPassword(generatePassword())}><RefreshCw />Generar contraseña</Button><p className="text-xs text-muted-foreground">Compartila por un canal privado. El operador podrá cambiarla desde su perfil.</p></div>}
       <Feedback error={error} /><Button disabled={pending} className="w-full">{pending ? "Guardando…" : "Guardar"}</Button>
     </form></DialogContent></Dialog>;
 }

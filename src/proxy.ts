@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { names, sessionCookies } from "./lib/api";
 
 export async function proxy(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith("/api/auth/")) return NextResponse.next();
   const refresh = request.cookies.get(names.refresh_token)?.value;
   const prefetch = request.headers.has("next-router-prefetch") || request.headers.get("purpose") === "prefetch";
   let renewed: ReturnType<typeof sessionCookies> = [];
@@ -15,7 +16,7 @@ export async function proxy(request: NextRequest) {
       }
     } catch { /* La página maneja la falta de sesión. */ }
   }
-  const response = !request.cookies.has(names.access_token) && request.nextUrl.pathname !== "/login"
+  const response = !request.cookies.has(names.access_token) && !request.nextUrl.pathname.startsWith("/login")
     ? NextResponse.redirect(new URL("/login", request.url))
     : NextResponse.next({ request });
   for (const item of renewed) response.cookies.set(item.name, item.value, {
