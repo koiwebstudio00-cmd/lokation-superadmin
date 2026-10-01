@@ -1,6 +1,6 @@
 # Ubikka · app-super-admin
 
-Panel exclusivo de operadores de Ubikka. Permite iniciar sesión, ver métricas generales de inmobiliarias, registrar una nueva con invitación a su primer administrador, renovar esa invitación y activar o suspender inmobiliarias. El panel no consulta leads ni conversaciones privadas.
+Panel exclusivo de operadores de Ubikka. Permite iniciar sesión, ver métricas generales de inmobiliarias, registrar una nueva con invitación a su primer administrador, renovar esa invitación y activar o suspender inmobiliarias. Incluye búsqueda y filtros de cuentas; los datos se actualizan al volver a la pestaña y cada 45 segundos mientras permanece visible. El panel no consulta leads ni conversaciones privadas.
 
 ## Desarrollo local
 

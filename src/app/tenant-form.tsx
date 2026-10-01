@@ -1,6 +1,7 @@
 "use client";
 import { useActionState, useState } from "react";
 import { createTenant, type FormState } from "./actions";
+import { CopyInvite } from "./copy-invite";
 
 export function TenantForm() {
   const [state, action, pending] = useActionState<FormState, FormData>(createTenant, {});
@@ -14,10 +15,10 @@ export function TenantForm() {
     <input name="slug" value={slug} required minLength={2} maxLength={49}
       pattern="[a-z0-9][a-z0-9-]+" onChange={(event) => { setSlugEdited(true); setSlug(event.target.value); }} /></label></div>
     <label>Email del primer administrador<input name="admin_email" type="email" required /></label>
-    <p className="hint">La inmobiliaria nace como borrador. Su administrador completa los datos y publica el sitio.</p>
+    <p className="hint">El sitio comienza como borrador. El administrador lo publica cuando esté listo.</p>
     {state.error && <p role="alert" className="error">{state.error}</p>}
     {state.success && <p role="status" className="success">{state.success}</p>}
-    {state.invitationUrl && <div className="invite"><strong>Enlace de invitación para desarrollo</strong>
-      <input readOnly value={state.invitationUrl} onFocus={(event) => event.currentTarget.select()} /></div>}
-    <button disabled={pending}>Registrar inmobiliaria</button></form>;
+    {state.invitationUrl && <div className="invite"><strong>Invitación lista para compartir</strong>
+      <CopyInvite url={state.invitationUrl} /></div>}
+    <button disabled={pending} className="primary-button">Registrar inmobiliaria <span aria-hidden="true">↗</span></button></form>;
 }
