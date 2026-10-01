@@ -1,6 +1,3 @@
 import { LoginForm } from "./login-form";
-
-export default function LoginPage() {
-  return <main className="login"><div className="panel"><p className="eyebrow">Ubikka · Operaciones</p>
-    <h1>Acceso super admin</h1><p>Iniciá sesión con tu cuenta de operador.</p><LoginForm /></div></main>;
-}
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+export default function LoginPage() { return <main className="flex min-h-dvh items-center justify-center bg-muted/50 p-4"><Card className="w-full max-w-md"><CardHeader><p className="mb-4 text-xl font-semibold tracking-tight text-primary">ubikka</p><CardTitle className="text-2xl">Acceso a la plataforma</CardTitle><CardDescription>Ingresá con tu cuenta de superadministrador.</CardDescription></CardHeader><CardContent><LoginForm /></CardContent></Card></main>; }

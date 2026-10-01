@@ -4,6 +4,8 @@ const base = (process.env.API_URL ?? "http://localhost:3001").replace(/\/$/, "")
 export const names = { access_token: "ubikka_sa_access", refresh_token: "ubikka_sa_refresh",
   csrf_token: "ubikka_sa_csrf" } as const;
 type ApiName = keyof typeof names;
+export type Operator = { id: string; nombre: string; email: string; estado: string; createdAt: string };
+export type Me = Pick<Operator, "id" | "nombre" | "email"> & { rol: string };
 export type Tenant = { id: string; nombre: string; slug: string; estado: string;
   sitePublished: boolean; createdAt: string; _count: { users: number } };
 
@@ -51,9 +53,9 @@ export async function callApi<T>(path: string, options: { method?: string; body?
   return data;
 }
 
-export async function login(email: string, password: string) {
+export async function login(email: string, password: string, otp?: string) {
   const response = await fetch(`${base}/v1/auth/login`, { method: "POST", cache: "no-store",
-    headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password }) });
+    headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password, otp }) });
   const data = await response.json().catch(() => ({})) as { user?: { rol: string }; error?: { message?: string } };
   if (!response.ok) throw new ApiError(data.error?.message ?? "No pudimos iniciar sesión.", response.status);
   if (data.user?.rol !== "super_admin") throw new ApiError("Esta cuenta no es operadora de Ubikka.", 403);
@@ -68,10 +70,26 @@ export async function logout() {
 
 export async function getMe() {
   try {
-    const data = await callApi<{ user: { nombre: string; rol: string } }>("/v1/auth/me");
+    const data = await callApi<{ user: Me }>("/v1/auth/me");
     return data.user.rol === "super_admin" ? data.user : null;
   } catch (error) {
     if (error instanceof ApiError && [401, 403].includes(error.status)) return null;
     throw error;
   }
 }
+
+export async function publicApi<T>(path: string, body: unknown, session = false): Promise<T> {
+  const response = await fetch(`${base}${path}`, { method: "POST", cache: "no-store", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const data = await response.json();
+  if (!response.ok) throw new ApiError(data.error?.message ?? "La operación falló.", response.status);
+  if (session) await saveSession(response);
+  return data;
+}
+export type Audit = { id: string; actorId: string; targetId: string; action: string; createdAt: string };
+export type TenantDetail = Tenant & { logoUrl: string | null; agentEnabled: boolean; configSitio: Record<string, unknown> | null;
+  _count: { users: number; properties: number; leads: number; conversations: number }; users: (Operator & { rol: string })[];
+  invitations: { email: string; expiresAt: string }[]; activity: Audit[] };
+export type Stats = { totals: { tenants: number; active: number; published: number; users: number; properties: number; leads: number; conversations: number };
+  tenants: TenantDetail[]; propertyStates: { estado: string; _count: number }[]; leadStates: { estado: string; _count: number }[];
+  growth: { month: string; tenants: number }[]; activity: Audit[]; generatedAt: string };
+export type Security = { twoFactorEnabled: boolean; recoveryCodesRemaining: number; passkeys: { id: string; nombre: string; createdAt: string }[] };
