@@ -1,12 +1,13 @@
 {
-  "name": "ubikka-app-super-admin",
+  "name": "lokation-app-super-admin",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --port 3003",
     "build": "next build",
     "start": "next start --port 3003",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test:google": "node --experimental-strip-types --test tests/google-oauth.test.mjs"
   },
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.3.0",

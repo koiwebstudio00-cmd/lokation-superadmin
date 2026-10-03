@@ -11,7 +11,7 @@ export function AppSidebar({ nombre, email }: { nombre: string; email: string })
   const close = () => { if (isMobile) setOpenMobile(false); };
   return <Sidebar collapsible="icon" variant="inset"><SidebarHeader><SidebarMenu><SidebarMenuItem><SidebarMenuButton asChild size="lg">
     <Link href="/" onClick={close}><span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground"><Command className="size-5" /></span>
-      <span className="grid min-w-0 text-left"><span className="text-lg font-semibold tracking-tight">ubikka</span><span className="truncate text-xs text-muted-foreground">Administración de plataforma</span></span></Link>
+      <span className="grid min-w-0 text-left"><span className="text-lg font-semibold tracking-tight">lokation</span><span className="truncate text-xs text-muted-foreground">Administración de plataforma</span></span></Link>
   </SidebarMenuButton></SidebarMenuItem></SidebarMenu></SidebarHeader>
     <SidebarContent><SidebarGroup><SidebarGroupLabel>Plataforma</SidebarGroupLabel><SidebarMenu>{items.map(item => <SidebarMenuItem key={item.href}>
       <SidebarMenuButton asChild tooltip={item.label} isActive={item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)}>

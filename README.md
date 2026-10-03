@@ -54,3 +54,8 @@ Ver [configuración y pruebas](../docs/LOGIN_GOOGLE_2FA.md). Google usa Better A
 ## Relación con el dashboard inmobiliario
 
 Cada panel tiene su tema y navegación propios. Los cambios de 2026-10-01 en `app-dashboard` (Noto Sans JP, selector de tema en navbar, contenedores redondeados y ajuste de activación de DropdownMenu) corresponden al panel inmobiliario. Este repositorio conserva su tema Lexend Deca y su flujo de seguridad. Las nuevas analíticas del tenant no amplían el acceso de los operadores a conversaciones o leads.
+
+## Actualización: correos, notificaciones y web pública
+
+Ver [guía de implementación y pruebas](../docs/CORREOS_NOTIFICACIONES_WEB.md).
+Campana en navbar con contador, últimas cinco notificaciones y página `/notificaciones`. Lectura individual/global y actualización cada 45 segundos con pestaña visible.

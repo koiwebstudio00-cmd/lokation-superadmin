@@ -58,7 +58,7 @@ export async function login(email: string, password: string, otp?: string) {
     headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password, otp }) });
   const data = await response.json().catch(() => ({})) as { user?: { rol: string }; error?: { message?: string } };
   if (!response.ok) throw new ApiError(data.error?.message ?? "No pudimos iniciar sesión.", response.status);
-  if (data.user?.rol !== "super_admin") throw new ApiError("Esta cuenta no es operadora de Ubikka.", 403);
+  if (data.user?.rol !== "super_admin") throw new ApiError("Esta cuenta no es operadora de Lokation.", 403);
   await saveSession(response);
 }
 
