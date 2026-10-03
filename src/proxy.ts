@@ -17,7 +17,6 @@ export async function proxy(request: NextRequest) {
     } catch { /* La página maneja la falta de sesión. */ }
   }
   const response = !request.cookies.has(names.access_token) && !request.nextUrl.pathname.startsWith("/login")
-    && !["/recuperar-clave", "/actualizar-clave"].includes(request.nextUrl.pathname)
     ? NextResponse.redirect(new URL("/login", request.url))
     : NextResponse.next({ request });
   for (const item of renewed) response.cookies.set(item.name, item.value, {
